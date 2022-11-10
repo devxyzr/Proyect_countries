@@ -25,10 +25,10 @@ module.exports = (sequelize) => {
         max: 5,
       },
     },
-    lengthTime: {
+    length_time: {
       type: DataTypes.INTEGER,
     },
-    Temporada: {
+    season: {
       type: DataTypes.ENUM("Verano", "Otoño", "Invierno", "Primavera"),
       allowNull: false,
     },

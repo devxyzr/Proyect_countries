@@ -14,19 +14,17 @@ module.exports = (sequelize) => {
       unique: true,
       allowNull: false,
     },
-    flagImage: {
+    flag_image: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
     },
     continent: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
-      unique: true,
     },
     capital: {
-      type: DataTypes.STRING,
-      unique: true,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     subregion: {

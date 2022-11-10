@@ -2,6 +2,9 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
+// const Country = require("./models/Country");
+// const Activity = require("./models/Activity");
+
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
@@ -37,10 +40,14 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { country } = sequelize.models;
+const { Country, Activity } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+// Dos tablas que tienen una relación Muchos a Muchos requieren una tercera tabla que actúa como unión o tabla de combinación.
+
+Country.belongsToMany(Activity, { through: "country_activity" });
+Activity.belongsToMany(Country, { through: "country_activity" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
