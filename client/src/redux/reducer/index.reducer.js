@@ -1,25 +1,17 @@
 import { Switch } from 'react-router-dom';
 import {
   GET_COUNTRIES,
-  // GET_ALL_ACTIVITIES,
-  // GET_COUNTRIES_SUMARY,
-  // GET_ALL_COUNTRIES,
-  // LOADING,
-  // PAGINADO,
-  // GET_COUNTRY_DETAIL,
-  // CREATE_ACTIVITY,
-  // DELETE_ACTIVITY,
-  // FILTER_BY_CONTINENT,
-  // FILTER_BY_ACTIVITIES,
-  // ORDER_BY_ABC,
-  // ORDER_BY_POPULATION,
+  GET_DETAIL_COUNTRIES,
+  GET_COUNTRY_NAME,
+  DELETE_ACTIVITY,
+  VIEW_ACTIVITY,
+  CREATE_ACTIVITY,
 } from '../actions/index.actions';
 
 const initialState = {
   countries: [],
-  // allcontries: [],
-  // countryDetail: {},
-  // activities: [],
+  countryDetail: [],
+  activities: [],
   // loading: true,
   // actualPage: 1,
 };
@@ -30,6 +22,35 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         countries: action.payload,
+      };
+    case GET_DETAIL_COUNTRIES:
+      return {
+        ...state,
+        countryDetail: action.payload,
+      };
+    case GET_COUNTRY_NAME:
+      return {
+        ...state,
+        countries: action.payload,
+      };
+    case VIEW_ACTIVITY:
+      return {
+        ...state,
+        countries: state.countries.filter((c) => {
+          return c.activities.some((a) => a.name === action.payload);
+        }),
+      };
+    case DELETE_ACTIVITY:
+      return {
+        ...state,
+        countries: state.countries.filter((c) => {
+          return c.activities.some((a) => a.name === action.payload);
+        }),
+      };
+    case CREATE_ACTIVITY:
+      return {
+        ...state,
+        activities: [...state.activities, action.payload],
       };
     default:
       return {

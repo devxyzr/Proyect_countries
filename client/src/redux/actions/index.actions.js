@@ -1,14 +1,18 @@
 import axios from 'axios';
+import { duration as durationOptions } from '../../components/utils';
 
 export const GET_COUNTRIES = 'GET_COUNTRIES';
+export const GET_DETAIL_COUNTRIES = 'GET_DETAIL_COUNTRIES';
+export const GET_COUNTRY_NAME = 'GET_COUNTRY_NAME';
+export const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
+export const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
+export const VIEW_ACTIVITY = 'VIEW_ACTIVITY';
 
 // export const LOADING = 'LOADING';
 // export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
 // export const GET_ALL_ACTIVITIES = 'GET_ALL_ACTIVITIES';
 // export const GET_COUNTRY_DETAIL = 'GET_COUNTRY_DETAIL';
 // export const GET_COUNTRIES_SUMARY = 'GET_COUNTRIES_SUMARY';
-// export const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
-// export const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
 // export const FILTER_BY_CONTINENT = 'FILTER_BY_CONTINENT';
 // export const FILTER_BY_ACTIVITIES = 'FILTER_BY_ACTIVITIES';
 // export const ORDER_BY_ABC = 'ORDER_BY_ABC';
@@ -16,15 +20,67 @@ export const GET_COUNTRIES = 'GET_COUNTRIES';
 // export const PAGINADO = 'PAGINADO';
 
 export function getCountries() {
-  // cambiar por coutries
-  return async function (dispatch) {
-    let response = await axios.get('http://localhost:3001/countries');
-    return dispatch({
-      type: GET_COUNTRIES,
-      payload: response.data,
-    });
+  return async (dispatch) => {
+    try {
+      let response = await axios.get('http://localhost:3001/countries');
+      return dispatch({
+        type: GET_COUNTRIES,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
+
+export function getDetailCountry(id) {
+  return async (dispatch) => {
+    let response = await axios.get(`http://localhost:3001/countries/${id}`);
+    return dispatch({ type: GET_DETAIL_COUNTRIES, payload: response.data });
+  };
+}
+
+export function getCountryName(name) {
+  return async (dispatch) => {
+    try {
+      let response = await axios.get(
+        `http://localhost:3001/countries?name=${name}`
+      );
+      return dispatch({
+        type: GET_COUNTRY_NAME,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export const viewActivity = (payload) => {
+  return {
+    type: VIEW_ACTIVITY,
+    payload,
+  };
+};
+
+export const createActivity = (values) => {
+  return async function (dispatch) {
+    try {
+      console.log(values);
+      await axios.post('http://localhost:3001/activities', values);
+      // return dispatch({ type: CREATE_ACTIVITY, payload: body });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const deleteActivity = (id) => {
+  return async function (dispatch) {
+    await axios.delete('http://localhost:3001/activities', { data: { id } });
+    return dispatch({ type: DELETE_ACTIVITY, payload: id });
+  };
+};
 
 // // --------------------------- Funcion
 

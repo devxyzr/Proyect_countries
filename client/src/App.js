@@ -4,7 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LandingPage from './components/LandingPage/LandigPage.jsx';
 import Nav from './components/Nav/Nav';
 import Home from './components/Home/Home';
-
+import CountryDetail from './components/CountryDetail/CountryDetail';
+import CreateActivityComponent from './components/CreateActivity/CreateActivity';
 function App() {
   return (
     <BrowserRouter>
@@ -14,6 +15,12 @@ function App() {
           <Route path={'/'} component={Nav} />
         </Switch>
         <Route exact path={'/countries'} component={Home} />
+        <Route exact path={'/countries/:id'} component={CountryDetail} />
+        <Route
+          exact
+          path={'/activities/create'}
+          component={CreateActivityComponent}
+        />
       </div>
     </BrowserRouter>
   );

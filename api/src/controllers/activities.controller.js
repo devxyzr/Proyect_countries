@@ -1,5 +1,5 @@
-const { Router } = require("express");
-const { Country, Activity } = require("../db");
+const { Router } = require('express');
+const { Country, Activity } = require('../db');
 
 const router = Router();
 
@@ -8,8 +8,8 @@ const getActivitieswithCountries = async function () {
     include: [
       {
         model: Activity,
-        attributes: ["name"],
-        through: { exclude: ["createdAt", "updatedAt"] },
+        attributes: ['name'],
+        through: { exclude: ['createdAt', 'updatedAt'] },
       },
     ],
   });

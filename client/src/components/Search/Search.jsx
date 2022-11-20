@@ -3,7 +3,7 @@ import { getCountriesSummary } from '../../redux/actions/index.actions';
 import { useDispatch } from 'react-redux';
 import { SetPaginadoGlobal } from '../../redux/actions/index.actions';
 
-export default function Search({ paginadoActivated }) {
+export default function Search() {
   const [input, setinput] = useState('');
   const dispatch = useDispatch();
 
@@ -13,10 +13,10 @@ export default function Search({ paginadoActivated }) {
 
   const clickHandler = (event) => {
     event.preventDefault();
-    dispatch(getCountriesSummary(input));
-    dispatch(SetPaginadoGlobal(1));
-    paginadoActivated();
-    setinput('');
+    // dispatch(getCountriesSummary(input));
+    // dispatch(SetPaginadoGlobal(1));
+    // paginadoActivated();
+    // setinput('');
   };
 
   return (
