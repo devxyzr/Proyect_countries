@@ -1,16 +1,18 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Search from '../Search/Search';
 import CountryCard from '../CountryCard/CountryCard';
 import FiltersnOrdering from '../Filters/FiltersnOrdering';
+import { Pagination } from '../Pagination/Pagination';
 
 import { getCountries } from '../../redux/actions/index.actions';
 
 const Home = () => {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries);
+  const { PaginationView, filterCountries } = Pagination(allCountries);
 
   useEffect(() => {
     dispatch(getCountries());
@@ -24,13 +26,15 @@ const Home = () => {
   return (
     <div>
       <button onClick={(e) => handleClick(e)}> Reload Page </button>
-
       <div>
         <FiltersnOrdering /> <Search />
+        {/* {console.log(Search)} */}
       </div>
 
       <div>
-        {allCountries?.map((country) => {
+        {PaginationView}
+
+        {filterCountries?.map((country) => {
           return (
             <CountryCard
               id={country.id}

@@ -1,71 +1,60 @@
 import React from 'react';
-import { SetPaginadoGlobal } from '../../redux/actions/index.actions';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
 
-const Pagination = ({
-  countriesPerPage,
-  countries,
-  paginadoHandler,
-  currentPage,
-  paginadoActivated,
-  activated,
-}) => {
-  const dispatch = useDispatch();
-  const pageNumbers = [];
+export const Pagination = (allCountries) => {
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const handlerClick = (event, number) => {
-    event.preventDefault();
-    paginadoHandler(number);
-    paginadoActivated(event.target.name);
+  let nextPage = () => {
+    if (allCountries.length <= currentPage + 10) {
+      setCurrentPage(currentPage);
+    } else setCurrentPage(currentPage + 10);
   };
 
-  const handlePrev = (event) => {
-    event.preventDefault();
-    paginadoActivated(currentPage - 1);
-    dispatch(SetPaginadoGlobal(currentPage - 1));
+  let prevPage = () => {
+    if (currentPage < 9) {
+      setCurrentPage(0);
+    } else {
+      setCurrentPage(currentPage - 10);
+    }
   };
 
-  const handleNext = (event) => {
-    event.preventDefault();
-    paginadoActivated(currentPage + 1);
-    dispatch(SetPaginadoGlobal(currentPage + 1));
+  const firstPage = () => {
+    setCurrentPage(0);
   };
 
-  for (let i = 0; i < Math.ceil(countries / countriesPerPage); i++) {
-    pageNumbers.push(i + 1);
-  }
+  const lastPage = () => {
+    setCurrentPage(allCountries.length - 10);
+  };
 
-  return (
-    <div className="">
-      <button className="" onClick={handlePrev} disabled={currentPage === 1}>
+  useEffect(() => {
+    firstPage();
+  }, [allCountries]);
+
+  const filterCountries = allCountries.slice(currentPage, currentPage + 10);
+
+  const PaginationView = (
+    <>
+      <button onClick={firstPage} className="">
         {' '}
-        Prev
+        {'<<'}{' '}
       </button>
-      <ul className="">
-        {pageNumbers.map((number) => {
-          <div key={number}>
-            <button
-              name={number}
-              value={currentPage}
-              className={activated[number]}
-              onClick={(event) => handlerClick(event, number)}
-            >
-              {number}{' '}
-            </button>
-          </div>;
-        })}
-      </ul>
-      <button
-        className=""
-        onClick={handleNext}
-        disabled={
-          !countries || currentPage === Math.ceil(countries / countriesPerPage)
-        }
-      >
+      <button onClick={prevPage} className="">
         {' '}
-        Next{' '}
+        {'<'}{' '}
       </button>
-    </div>
+      <button onClick={nextPage} className="">
+        {' '}
+        {'>'}{' '}
+      </button>
+      <button onClick={lastPage} className="">
+        {' '}
+        {'>>'}
+      </button>
+    </>
   );
+
+  return {
+    PaginationView,
+    filterCountries,
+  };
 };
-export default Pagination;

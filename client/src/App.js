@@ -6,6 +6,8 @@ import Nav from './components/Nav/Nav';
 import Home from './components/Home/Home';
 import CountryDetail from './components/CountryDetail/CountryDetail';
 import CreateActivityComponent from './components/CreateActivity/CreateActivity';
+import Activities from './components/Actitvities/Activities';
+
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +23,7 @@ function App() {
           path={'/activities/create'}
           component={CreateActivityComponent}
         />
+        <Route exact path={'/activities'} component={Activities} />
       </div>
     </BrowserRouter>
   );

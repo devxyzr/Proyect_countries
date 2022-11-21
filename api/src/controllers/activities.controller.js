@@ -8,7 +8,7 @@ const getActivitieswithCountries = async function () {
     include: [
       {
         model: Activity,
-        attributes: ['name'],
+        attributes: ['name', 'difficulty', 'length_time', 'season'],
         through: { exclude: ['createdAt', 'updatedAt'] },
       },
     ],

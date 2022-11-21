@@ -7,6 +7,12 @@ export const GET_COUNTRY_NAME = 'GET_COUNTRY_NAME';
 export const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
 export const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
 export const VIEW_ACTIVITY = 'VIEW_ACTIVITY';
+export const GET_ALL_ACTIVITIES = 'GET_ALL_ACTIVITIES';
+export const ALPHABETIC_ORDER_ASC = 'ALPHABETIC_ORDER_ASC';
+export const ALPHABETIC_ORDER_DESC = 'ALPHABETIC_ORDER_DESC';
+export const POPULATION_ORDER_ASC = 'POPULATION_ORDER_ASC';
+export const POPULATION_ORDER_DESC = 'POPULATION_ORDER_DESC';
+export const CONTINENT_ORDER = 'CONTINENT_ORDER';
 
 // export const LOADING = 'LOADING';
 // export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
@@ -56,13 +62,6 @@ export function getCountryName(name) {
   };
 }
 
-export const viewActivity = (payload) => {
-  return {
-    type: VIEW_ACTIVITY,
-    payload,
-  };
-};
-
 export const createActivity = (values) => {
   return async function (dispatch) {
     try {
@@ -79,6 +78,51 @@ export const deleteActivity = (id) => {
   return async function (dispatch) {
     await axios.delete('http://localhost:3001/activities', { data: { id } });
     return dispatch({ type: DELETE_ACTIVITY, payload: id });
+  };
+};
+
+export const getAllActivities = () => {
+  return async function (dispatch) {
+    let response = await axios.get('http://localhost:3001/activities');
+    return dispatch({ type: GET_ALL_ACTIVITIES, payload: response.data });
+  };
+};
+
+export const viewActivity = (payload) => {
+  return {
+    type: VIEW_ACTIVITY,
+    payload,
+  };
+};
+
+export function alphabeticOrderASC() {
+  return {
+    type: ALPHABETIC_ORDER_ASC,
+  };
+}
+
+export function alphabeticOrderDESC() {
+  return {
+    type: ALPHABETIC_ORDER_DESC,
+  };
+}
+
+export function populationOrderASC() {
+  return {
+    type: POPULATION_ORDER_ASC,
+  };
+}
+
+export function populationOrderDESC() {
+  return {
+    type: POPULATION_ORDER_DESC,
+  };
+}
+
+export const continentOrder = (payload) => {
+  return {
+    type: CONTINENT_ORDER,
+    payload,
   };
 };
 
@@ -104,13 +148,6 @@ export const deleteActivity = (id) => {
 //     dispatch(loading());
 //     let response = await axios.get('http://localhost:3001/countries');
 //     return dispatch({ type: GET_ALL_COUNTRIES, payload: response.data });
-//   };
-// };
-
-// export const getAllActivities = () => {
-//   return async function (dispatch) {
-//     let response = await axios.get('http://localhost:3001/activities');
-//     return dispatch({ type: GET_ALL_ACTIVITIES, payload: response.data });
 //   };
 // };
 

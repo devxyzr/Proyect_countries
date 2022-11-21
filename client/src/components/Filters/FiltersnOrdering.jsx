@@ -1,117 +1,137 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { continents } from '../utils';
-import { useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import { getAllActivities } from '../../redux/actions/index.actions';
-import { filterCountriesByContinent } from '../../redux/actions/index.actions';
-import { filterCountriesByActivities } from '../../redux/actions/index.actions';
-import { OrderbyABCs } from '../../redux/actions/index.actions';
-import { OrderbyPopulation } from '../../redux/actions/index.actions';
-import { SetPaginadoGlobal } from '../../redux/actions/index.actions';
+import {
+  getCountries,
+  alphabeticOrderASC,
+  alphabeticOrderDESC,
+  populationOrderASC,
+  populationOrderDESC,
+  continentOrder,
+  viewActivity,
+} from '../../redux/actions/index.actions.js';
 
-// styles
+const FiltersnOrdering = ({
+  getCountries,
+  alphabeticOrderASC,
+  alphabeticOrderDESC,
+  populationOrderASC,
+  populationOrderDESC,
+  continentOrder,
+  viewActivity,
+}) => {
+  const [sort, setOrder] = useState('');
+  const [region, setRegion] = useState('');
+  const [activity, setActivity] = useState('');
+  const dispatch = useDispatch();
+  const countries = useSelector((state) => state.countries);
 
-const FiltersnOrdering = () => {
-  //   const history = useHistory();
-  //   const dispatch = useDispatch();
-  const activities = useSelector((state) => state.activities);
+  useEffect(() => {
+    if (region) {
+      getCountries().then((value) => {
+        console.log(value);
+        if (region !== 'all') {
+          // setTimeout(() => {
+          dispatch(continentOrder(region));
+          // }, 1000);
+        }
+      });
+    }
+  }, [region]);
 
-  //   const handlerOrdering = (event) => {
-  //     switch (event.target.value) {
-  //       case 'up':
-  //         dispatch(OrderbyABCs(event.target.value));
-  //         dispatch(SetPaginadoGlobal(1));
-  //         setOrden(`Ordenado ${event.target.value}`);
-  //         paginadoActivated();
-  //         break;
-  //       case 'down':
-  //         dispatch(OrderbyABCs(event.target.value));
-  //         dispatch(SetPaginadoGlobal(1));
-  //         setOrden(`Ordenado ${event.target.value}`);
-  //         paginadoActivated();
-  //         break;
-  //       case 'more':
-  //         dispatch(OrderbyPopulation(event.target.value));
-  //         dispatch(SetPaginadoGlobal(1));
-  //         setOrden(`Ordenado ${event.target.value}`);
-  //         paginadoActivated();
-  //         break;
-  //       case 'less':
-  //         dispatch(OrderbyPopulation(event.target.value));
-  //         dispatch(SetPaginadoGlobal(1));
-  //         setOrden(`Ordenado ${event.target.value}`);
-  //         paginadoActivated();
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //   };
-  //   const handlerFilterContinent = (event) => {
-  //     dispatch(filterCountriesByActivities(event.target.value));
-  //     dispatch(filterCountriesByContinent(event.target.value));
-  //     paginadoActivated();
-  //   };
+  useEffect(() => {
+    console.log({ countries });
+  }, [countries]);
 
-  //   const handlerFilterActivities = (event) => {
-  //     dispatch(filterCountriesByActivities(event.target.value));
-  //     dispatch(SetPaginadoGlobal(1));
-  //     paginadoActivated();
-  //   };
+  useEffect(() => {
+    if (sort === 'all') getCountries();
+    else if (sort === 'a-z') alphabeticOrderASC();
+    else if (sort === 'z-a') alphabeticOrderDESC();
+    else if (sort === '↑ population') populationOrderASC();
+    else if (sort === '↓ population') populationOrderDESC();
+  }, [sort]);
 
-  //   const handlerClearFilter = () => {
-  //     history.go(0);
-  //     dispatch(SetPaginadoGlobal(1));
-  //     paginadoActivated();
-  //   };
+  const activityHandler = (e) => {
+    e.preventDefault();
 
-  //   React.useEffect(() => {
-  //     dispatch(getAllActivities());
-  //   }, [dispatch]);
+    setActivity(e.target.value);
+  };
+
+  const searchActHandler = (e) => {
+    e.preventDefault();
+    getCountries();
+    setTimeout(() => {
+      dispatch(viewActivity(activity));
+    }, 200);
+
+    console.log(activity);
+    setActivity('');
+  };
 
   return (
     <div className="">
-      <select defaultValue="default" className="">
-        <option hidden value="default">
-          {' '}
-          Order by{' '}
-        </option>
-        <option value="up">From Albania to Zimbabwe </option>
-        <option value="down"> From Zimbabwe to Albania</option>
-        <option value="more">From most to least populated </option>
-        <option value="less">From least to most populated</option>
-      </select>
+      <div className="">
+        <p>Sort by</p>
+        <select onChange={(event) => setOrder(event.target.value)}>
+          <option value="all">-</option>
+          <option value="a-z">A-Z</option>
+          <option value="z-a">Z-A</option>
+          <option value="↑ population">↑ population</option>
+          <option value="↓ population">↓ population</option>
+        </select>
+      </div>
+      <div className="">
+        <p>Filter by Continent</p>
 
-      <select defaultValue="default" className="">
-        <option hidden value="default">
-          {' '}
-          Filter by Region
-        </option>
-        {/* {continents.map((continent) => {
-          return (
-            <option key={continent} value={continent}>
-              {continent}{' '}
-            </option>
-          );
-        })} */}
-      </select>
-
-      <select defaultValue="default" className="">
-        <option hidden value="default ">
-          {' '}
-          Filter by Activities
-        </option>
-        <option value="All">All activities</option>
-        {/* {activities.map((activitie) => {
-          <option key={activitie.id} value={activitie.name}>
-            {activitie.name}
-          </option>;
-        })} */}
-      </select>
-
-      <button className=""> Clear Filters</button>
+        <div className="">
+          <select onChange={(event) => setRegion(event.target.value)}>
+            <option value="all">All</option>
+            <option value="South America">South America</option>
+            <option value="North America">North America</option>
+            <option value="Europe">Europe</option>
+            <option value="Africa">Africa</option>
+            <option value="Oceania">Oceania</option>
+            <option value="Asia">Asia</option>
+          </select>
+        </div>
+      </div>
+      {/* <div className="">
+        <label>Activity</label>
+        <form>
+          <input
+            className=""
+            placeholder="Search your activity."
+            type="text"
+            autocomplete="off"
+            value={activity}
+            onChange={activityHandler}
+          />
+          <button className="" onClick={searchActHandler}>
+            Search
+          </button>
+        </form>
+      </div> */}
     </div>
   );
 };
 
-export default FiltersnOrdering;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCountries: () => dispatch(getCountries()),
+    alphabeticOrderASC: () => dispatch(alphabeticOrderASC()),
+    alphabeticOrderDESC: () => dispatch(alphabeticOrderDESC()),
+    continentOrder: (region) => dispatch(continentOrder(region)),
+    viewActivity: (payload) => dispatch(viewActivity(payload)),
+    populationOrderASC: () => dispatch(populationOrderASC()),
+    populationOrderDESC: () => dispatch(populationOrderDESC()),
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    countries: state.countries,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FiltersnOrdering);
