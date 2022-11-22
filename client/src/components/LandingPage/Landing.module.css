@@ -1,0 +1,48 @@
+
+
+.backgroundImg {
+    background-color: black;
+    background-image: url("https://www.nasa.gov/sites/default/files/thumbnails/image/iss059e006521.jpg");
+    /* background-size:contain; */
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+
+.container {
+    box-shadow: 0.5rem 0.5rem 4rem  ;
+    background-color :rgba(205, 221, 231, 0.48);
+    margin-left: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    height: 30rem ;
+    width: 50rem;
+    border: 0.1rem solid white;
+    border-radius: 1.5rem;
+}
+
+.button {
+font-weight: 600 ;
+    font-size:  2rem;
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 1rem; 
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+

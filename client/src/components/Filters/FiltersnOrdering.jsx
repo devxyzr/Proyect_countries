@@ -33,9 +33,7 @@ const FiltersnOrdering = ({
       getCountries().then((value) => {
         console.log(value);
         if (region !== 'all') {
-          // setTimeout(() => {
           dispatch(continentOrder(region));
-          // }, 1000);
         }
       });
     }
@@ -97,22 +95,6 @@ const FiltersnOrdering = ({
           </select>
         </div>
       </div>
-      {/* <div className="">
-        <label>Activity</label>
-        <form>
-          <input
-            className=""
-            placeholder="Search your activity."
-            type="text"
-            autocomplete="off"
-            value={activity}
-            onChange={activityHandler}
-          />
-          <button className="" onClick={searchActHandler}>
-            Search
-          </button>
-        </form>
-      </div> */}
     </div>
   );
 };

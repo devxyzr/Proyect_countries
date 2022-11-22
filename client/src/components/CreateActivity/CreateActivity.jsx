@@ -1,7 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import * as actions from '../../redux/actions/index.actions';
 import {
   difficulties,
   seasons,
@@ -9,20 +7,15 @@ import {
   reg_ex,
 } from '../utils';
 import { useHistory } from 'react-router-dom';
-// import Style from './CreateTour.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../redux/actions/index.actions';
 
 const CreateActivityComponent = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const allcountries = useSelector((state) => state.countries);
 
-  /*TRAIGO UN ESTADO LOCAL DE MIS ACTIVITIES PARA PODER MAPEAR**********************/
-  /*SUS NOMBRES Y PODER USARLOS PARA LA VALIDACION DE NOMBRES REPETIDOS*************/
-  // const activities = useSelector((state) => state.activities);
-  // const activitiesNames = activities.map((activity) => activity.name);
-  /*********************************************************************************/
-
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(actions.getCountries());
   }, [dispatch]);
 
@@ -40,7 +33,6 @@ const CreateActivityComponent = () => {
     name: '',
   });
 
-  /*FUNCIÓN VALIDADORA DEL INPUT DEL NOMBRE DE LA ACTIVIDAD************************/
   const validateActivityName = () => {
     let errors = {};
 
@@ -59,8 +51,6 @@ const CreateActivityComponent = () => {
     setErrors(validateActivityName());
   };
 
-  /*GUARDO EN MI ESTADO COUNTRIES LOS PAISES QUE VOY SELECCIONANDO EN MI SELECT****/
-  /*Y UTILIZO EL NEW SET PARA ELIMINAR DUPLICADOS**********************************/
   const handlerSelectCountry = (e) => {
     setCountries([...countries, e.target.value]);
   };
@@ -122,7 +112,7 @@ const CreateActivityComponent = () => {
             className=""
             required
           />
-          {/*Renderizo un parrafo que indica el tipo de error del input del name*/}
+
           {errors.name && <p className="">{errors.name}</p>}
 
           <label className="">Difficulty: </label>
@@ -200,13 +190,8 @@ const CreateActivityComponent = () => {
                 </option>
               ))}
             </select>
-            {/*Renderizo un parrafo que indica el error si no se selecciona ningún country*/}
-            {/* {!countries.length && (
-              <p className="">Select at least one Country</p>
-            )} */}
           </div>
-          {/*Aquí renderizo las countries seleccionadas en el "select", con un botón para poder
-                        eliminarlas si se agregan por error*/}
+
           <div className="">
             {countries &&
               countries.map((country, index) => (

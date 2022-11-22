@@ -1,24 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from './CountryCard.module.css';
 
 import { setContinentImg, setPopulation } from '../utils';
 
 const CountryCard = ({ name, id, img, continent, population }) => {
   return (
-    <div className="">
-      <img src={img} alt={'Img not found'} />
-      <Link className="" to={`countries/${id}`}>
-        <h2>{name}</h2>
-      </Link>
-      <h4 className="">Continent: {continent}</h4>
-      {setContinentImg[continent]}
-      <p className="">
-        Population: {new Intl.NumberFormat('en-US').format(population)}
-      </p>
-      {setPopulation(population)}
-      <Link className="" to={`countries/${id}`}>
-        <button className="">See details</button>
-      </Link>
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <div>
+          <img className={styles.headerImage} src={img} alt={'Img not found'} />
+        </div>
+        <div className={styles.cardBody}>
+          <div className={styles.continentImage}>
+            <Link to={`countries/${id}`}>
+              <h2 className={styles.countryName}>{name}</h2>
+            </Link>
+            {setContinentImg[continent]}
+          </div>
+          <h4 className={styles.continentName}>Continent: {continent}</h4>
+          <div className={styles.populationInfo}>
+            Population:{' '}
+            <p> {new Intl.NumberFormat('en-US').format(population)} </p> ({' '}
+            {setPopulation(population)})
+          </div>
+          <div className={styles.buttonCard}>
+            <Link className="" to={`countries/${id}`}>
+              <button className={styles.buttonDetail}>See details</button>
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

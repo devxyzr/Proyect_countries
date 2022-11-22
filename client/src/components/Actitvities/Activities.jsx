@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllActivities } from '../../redux/actions/index.actions';
-import { deleteActivity } from '../../redux/actions/index.actions';
 import { getCountries } from '../../redux/actions/index.actions';
+import { deleteActivity } from '../../redux/actions/index.actions';
+import { getAllActivities } from '../../redux/actions/index.actions';
 
 const Activities = () => {
   const dispatch = useDispatch();
@@ -12,11 +12,11 @@ const Activities = () => {
     dispatch(getAllActivities());
   }, [dispatch]);
 
-  const handlerDelete = async (event, name) => {
-    event.preventDefault();
-    dispatch(deleteActivity(name));
-    alert(`The activity ${name} has been deleted successfully`);
-  };
+  // const handlerDelete = async (event, name) => {
+  //   event.preventDefault();
+  //   dispatch(deleteActivity(name));
+  //   alert(`The activity ${name} has been deleted successfully`);
+  // };
 
   const [activities, setActivities] = useState([]);
 
@@ -73,15 +73,6 @@ const Activities = () => {
               {value?.map((countries) => {
                 return <p>{countries.countryName}</p>;
               })}
-
-              {/* //  
-          
-
-            //   <button
-            //     onClick={(event) => handlerDelete(event, activities.name)}
-            //   >
-            //     Delete
-            //   </button> */}
             </div>
           );
         })}

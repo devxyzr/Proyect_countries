@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styles from './Home.module.css';
 
 import Search from '../Search/Search';
 import CountryCard from '../CountryCard/CountryCard';
@@ -30,10 +31,9 @@ const Home = () => {
         <FiltersnOrdering /> <Search />
         {/* {console.log(Search)} */}
       </div>
+      {PaginationView}
 
-      <div>
-        {PaginationView}
-
+      <div className={styles.containerCards}>
         {filterCountries?.map((country) => {
           return (
             <CountryCard

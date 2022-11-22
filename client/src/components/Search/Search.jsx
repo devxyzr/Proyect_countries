@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getCountriesSummary } from '../../redux/actions/index.actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { SetPaginadoGlobal } from '../../redux/actions/index.actions';
 import { getCountryName } from '../../redux/actions/index.actions';
 import { getCountries } from '../../redux/actions/index.actions';
 
@@ -9,15 +7,6 @@ export default function Search() {
   const [countryName, setCountryName] = useState('');
   const dispatch = useDispatch();
   const countryDetail = useSelector((state) => state.countries);
-
-  // useEffect(() => {
-  //   // console.log(countryDetail);
-  // }, [countryDetail]);
-
-  // useEffect(() => {
-  //   if (!countryName) dispatch(getCountries());
-  //   console.log('que hio');
-  // }, [countryName]);
 
   const searchInputHandler = (e) => {
     setCountryName(e.target.value);
@@ -28,11 +17,6 @@ export default function Search() {
   const clickHandler = (event) => {
     event.preventDefault();
     dispatch(getCountryName(countryName));
-
-    // dispatch(getCountriesSummary(input));
-    // dispatch(SetPaginadoGlobal(1));
-    // paginadoActivated();
-    // setinput('');
   };
 
   return (
