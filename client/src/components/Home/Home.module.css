@@ -1,3 +1,19 @@
+
+.mainContainerFilters {
+
+  background-color:  rgb(235, 236, 240);
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+ 
+}
+
+
+
+
+
 @media (max-width: 425px) {
     
 .containerCards {
@@ -46,7 +62,28 @@ grid-gap: 10px;
      }
     }
 
-    
+    .containerReload {
+      display: flex;
+      justify-content: flex-start;
+      margin-left: 1.5rem;
+      /* background-color: aliceblue; */
+    }   
+
+.containerReload button {
+  font-size: 1.1rem;
+  font-weight: 400;
+color: white;
+      height: auto;
+      width: auto;
+      background-color: black;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+
+
+
 
 /* .containerCards {
     width: auto;

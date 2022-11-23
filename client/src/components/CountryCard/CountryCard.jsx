@@ -26,7 +26,7 @@ const CountryCard = ({ name, id, img, continent, population }) => {
           </div>
           <div className={styles.buttonCard}>
             <Link className="" to={`countries/${id}`}>
-              <button className={styles.buttonDetail}>See details</button>
+              <button className={styles.buttonDetail}>SEE DATAILS</button>
             </Link>
           </div>
         </div>

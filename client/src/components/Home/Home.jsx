@@ -26,12 +26,19 @@ const Home = () => {
 
   return (
     <div>
-      <button onClick={(e) => handleClick(e)}> Reload Page </button>
-      <div>
-        <FiltersnOrdering /> <Search />
-        {/* {console.log(Search)} */}
+      <div className={styles.mainContainerFilters}>
+        <Search />
+
+        <div>
+          <FiltersnOrdering />
+          {/* {console.log(Search)} */}
+        </div>
+
+        <div className={styles.containerReload}>
+          <button onClick={(e) => handleClick(e)}>REFRESH</button>
+        </div>
       </div>
-      {PaginationView}
+      <div>{PaginationView}</div>
 
       <div className={styles.containerCards}>
         {filterCountries?.map((country) => {
@@ -47,6 +54,7 @@ const Home = () => {
           );
         })}
       </div>
+      <div>{PaginationView}</div>
     </div>
   );
 };

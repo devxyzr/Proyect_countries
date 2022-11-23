@@ -9,6 +9,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../redux/actions/index.actions';
+import styles from './CreateActivity.module.css';
 
 const CreateActivityComponent = () => {
   const history = useHistory();
@@ -36,10 +37,10 @@ const CreateActivityComponent = () => {
   const validateActivityName = () => {
     let errors = {};
 
-    if (!name) errors.name = 'Activity name is required';
+    if (!name) errors.name = '*Activity name is required';
     else if (!reg_ex.test(name))
       errors.name =
-        'Activity name is invalid: simbols or numbers are not allowed';
+        '*Activity name is invalid: simbols or numbers are not allowed';
     else errors.name = '';
     return errors;
   };
@@ -94,122 +95,129 @@ const CreateActivityComponent = () => {
     !countries.length;
 
   return (
-    <div className="">
-      <div className="">CREATE YOUR CUSTOMIZED ACTIVITY</div>
+    <div className={styles.containerMain}>
       <form className="" onSubmit={handlerSubmit}>
-        <div className="">
-          <label className="">Name: </label>
-          <input
-            type="text"
-            name="name"
-            onChange={handlerChangeName}
-            onBlur={() => {
-              setName(name.trim());
-              setErrors(validateActivityName());
-            }}
-            placeholder={"Here goes the activity's name"}
-            value={name}
-            className=""
-            required
-          />
+        <div className={styles.cardActivities}>
+          <div className={styles.card}>
+            <h2 className="">CREATE YOUR ACTIVITY</h2>
+            <div className={styles.cardActivitiesChild}>
+              <label className="">NAME: </label>
 
-          {errors.name && <p className="">{errors.name}</p>}
+              <input
+                type="text"
+                name="name"
+                onChange={handlerChangeName}
+                onBlur={() => {
+                  setName(name.trim());
+                  setErrors(validateActivityName());
+                }}
+                placeholder={"  Here goes the activity's name"}
+                value={name}
+              />
 
-          <label className="">Difficulty: </label>
-          <div className="">
-            <select
-              className=""
-              name="difficulty"
-              onChange={(e) => setDifficulty(e.target.value)}
-              value={difficulty}
-            >
-              <option hidden selected>
-                Select from 1 to 5
-              </option>
-              {difficulties.map((number) => (
-                <option key={number} value={number}>
-                  {number}
+              {errors.name && <p className="">{errors.name}</p>}
+
+              <label className="">DIFFICULTY: </label>
+
+              <select
+                className=""
+                name="difficulty"
+                onChange={(e) => setDifficulty(e.target.value)}
+                value={difficulty}
+              >
+                <option hidden selected>
+                  Select from 1 to 5
                 </option>
-              ))}
-            </select>
-          </div>
+                {difficulties.map((number) => (
+                  <option key={number} value={number}>
+                    {number}
+                  </option>
+                ))}
+              </select>
 
-          <label className="">Duration: </label>
-          <div className="">
-            <select
-              className=""
-              name="duration"
-              onChange={(e) => setDuration(e.target.value)}
-              value={duration}
-            >
-              <option hidden selected>
-                Set the duration
-              </option>
-              {durationOptions.map((durationTime, index) => (
-                <option key={index} value={durationTime.value}>
-                  {durationTime.label}
+              <label className="">DURATION: </label>
+
+              <select
+                className=""
+                name="duration"
+                onChange={(e) => setDuration(e.target.value)}
+                value={duration}
+              >
+                <option hidden selected>
+                  Set the duration
                 </option>
-              ))}
-            </select>
-          </div>
+                {durationOptions.map((durationTime, index) => (
+                  <option key={index} value={durationTime.value}>
+                    {durationTime.label}
+                  </option>
+                ))}
+              </select>
 
-          <label className="">Season: </label>
-          <div className="">
-            <select
-              className=""
-              name="season"
-              onChange={(e) => setSeason(e.target.value)}
-              value={season}
-            >
-              <option hidden selected>
-                Select a season
-              </option>
-              {seasons.map((season) => (
-                <option key={season} value={season}>
-                  {season}
+              <label className="">SEASON:</label>
+
+              <select
+                className=""
+                name="season"
+                onChange={(e) => setSeason(e.target.value)}
+                value={season}
+              >
+                <option hidden selected>
+                  Select a season
                 </option>
-              ))}
-            </select>
-          </div>
-        </div>
+                {seasons.map((season) => (
+                  <option key={season} value={season}>
+                    {season}
+                  </option>
+                ))}
+              </select>
 
-        <div className="">
-          <label className="">Countries: </label>
-          <div className="">
-            <select
-              className=""
-              name="countries"
-              onChange={handlerSelectCountry}
-            >
-              <option hidden selected>
-                Select one or more countries
-              </option>
-              {allcountries.map((country) => (
-                <option key={country.id} value={country.name}>
-                  {country.name}
+              <label className="">COUNTRIES: </label>
+
+              <select
+                className=""
+                name="countries"
+                onChange={handlerSelectCountry}
+              >
+                <option hidden selected>
+                  Select one or more countries
                 </option>
-              ))}
-            </select>
-          </div>
+                {allcountries.map((country) => (
+                  <option key={country.id} value={country.name}>
+                    {country.name}
+                  </option>
+                ))}
+              </select>
 
-          <div className="">
-            {countries &&
-              countries.map((country, index) => (
-                <div className="" key={index}>
-                  {country}
-                  <button className="" value={country} onClick={handlerDelete}>
-                    X
-                  </button>
-                </div>
-              ))}
+              <div>
+                {countries &&
+                  countries.map((country, index) => (
+                    <div
+                      className={styles.cardActivitiesChildCountry}
+                      key={index}
+                    >
+                      <p>{country}</p>
+                      <button
+                        className=""
+                        value={country}
+                        onClick={handlerDelete}
+                      >
+                        ❌
+                      </button>
+                    </div>
+                  ))}
+              </div>
+              <div className={styles.buttonCreate}>
+                <button disabled={disabledSubmit()} type="submit">
+                  CREATE ACTIVITY
+                </button>
+              </div>
+              {disabledSubmit() && (
+                <p className="">
+                  Button disabled, one or more fields are empty
+                </p>
+              )}
+            </div>
           </div>
-
-          <button className="" disabled={disabledSubmit()} type="submit">
-            Create Activity
-          </button>
-          {disabledSubmit() && (
-            <p className="">Button disabled, one or more fields are empty</p>
-          )}
         </div>
       </form>
     </div>

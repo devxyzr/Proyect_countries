@@ -45,7 +45,9 @@ const CountryDetail = (props) => {
       ) : (
         <>
           {' '}
-          <button onClick={() => history.goBack()}>Back</button>
+          <div className={styles.buttonBack}>
+            <button onClick={() => history.goBack()}> ⬅BACK</button>
+          </div>
           <div className={styles.container}>
             <div className={styles.card}>
               <div>

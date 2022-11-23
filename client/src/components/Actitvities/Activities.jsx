@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCountries } from '../../redux/actions/index.actions';
 import { deleteActivity } from '../../redux/actions/index.actions';
 import { getAllActivities } from '../../redux/actions/index.actions';
+import styles from './Activities.module.css';
+import { Link } from 'react-router-dom';
 
 const Activities = () => {
   const dispatch = useDispatch();
@@ -28,6 +30,7 @@ const Activities = () => {
       if (countryActivity?.activities.length !== 0) {
         for (const activity of countryActivity.activities) {
           activity.countryName = countryActivity.name;
+          activity.flagImage = countryActivity.flag_image;
           allActivities.push(activity);
           activitiesIds.push(activity.country_activity.activityId);
         }
@@ -57,22 +60,66 @@ const Activities = () => {
   }, [activitiesByCountries]);
 
   return (
-    <div className="">
-      <h1>Tours around the world</h1>
-      <div className="">
+    <div className={styles.cardContainer}>
+      {/* <div>
+        <h1>ACTIVITIS AROUND THE WORLD</h1>
+      </div> */}
+      <div className={styles.cardActivities}>
+        <div className={styles.cardActivitiesChildInfo}>
+          <h4>
+            ¡Create new activity <br /> for you country!
+          </h4>
+          {/* <h4>Want to cr eate one?</h4> */}
+          <Link to={{ pathname: '/activities/create' }}>
+            <button className={styles.buttonDetail}>Create Activity ▶</button>
+          </Link>
+        </div>
+
         {activities.map((activity) => {
           const { value } = activity;
           const { name, difficulty, length_time, season } = value[0];
           return (
-            <div className="">
-              <h3>{name}</h3>
-              <p>{`Difficulty: ${difficulty}/5`}</p>
-              <p>{`Duration: ${length_time}`}</p>
-              <p>{`Season: ${season}`}</p>
-              <h4>Countries:</h4>
-              {value?.map((countries) => {
-                return <p>{countries.countryName}</p>;
-              })}
+            <div className={styles.cardActivitiesChild}>
+              <h4>
+                ACTIVITY:
+                <p>{name}</p>
+              </h4>
+
+              <h4>
+                {' '}
+                DIFFICULTY:
+                <p>{` ${difficulty}/5`}</p>
+              </h4>
+
+              <h4>
+                DURATION:
+                <p>{`${length_time}h.`}</p>
+              </h4>
+
+              <h4>
+                SEASON:
+                <p>{`${season}`}</p>
+              </h4>
+
+              <h4>COUNTRIES:</h4>
+              <div className={styles.cardActivitiesChildCountry}>
+                <Link to={`/countries`}>
+                  {value?.map((countries) => {
+                    return (
+                      <div>
+                        <p>{countries.countryName} ☑</p>
+                        <img
+                          className={styles.imageCard}
+                          src={countries.flagImage}
+                          alt="IMG"
+                          width="33px"
+                          height="33px"
+                        />
+                      </div>
+                    );
+                  })}
+                </Link>
+              </div>
             </div>
           );
         })}

@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styles from './Filters.module.css';
 
 import {
   getCountries,
@@ -69,9 +70,10 @@ const FiltersnOrdering = ({
   };
 
   return (
-    <div className="">
-      <div className="">
-        <p>Sort by</p>
+    <div className={styles.filterContainer}>
+      <div className={styles.cardActivitiesChild}>
+        <p>SORT BY: </p>
+
         <select onChange={(event) => setOrder(event.target.value)}>
           <option value="all">-</option>
           <option value="a-z">A-Z</option>
@@ -79,9 +81,8 @@ const FiltersnOrdering = ({
           <option value="↑ population">↑ population</option>
           <option value="↓ population">↓ population</option>
         </select>
-      </div>
-      <div className="">
-        <p>Filter by Continent</p>
+
+        <p>FILTER BY CONTINENT</p>
 
         <div className="">
           <select onChange={(event) => setRegion(event.target.value)}>

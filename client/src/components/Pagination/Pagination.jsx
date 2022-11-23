@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import styles from './Pagination.module.css';
 
 export const Pagination = (allCountries) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -33,24 +34,20 @@ export const Pagination = (allCountries) => {
   const filterCountries = allCountries.slice(currentPage, currentPage + 10);
 
   const PaginationView = (
-    <>
+    <div className={styles.buttonContainer}>
       <button onClick={firstPage} className="">
-        {' '}
-        {'<<'}{' '}
+        ◀◀
       </button>
       <button onClick={prevPage} className="">
-        {' '}
-        {'<'}{' '}
+        ◀
       </button>
       <button onClick={nextPage} className="">
-        {' '}
-        {'>'}{' '}
+        ▶
       </button>
       <button onClick={lastPage} className="">
-        {' '}
-        {'>>'}
+        ▶▶
       </button>
-    </>
+    </div>
   );
 
   return {

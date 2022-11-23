@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCountryName } from '../../redux/actions/index.actions';
 import { getCountries } from '../../redux/actions/index.actions';
+import styles from './Search.module.css';
 
 export default function Search() {
   const [countryName, setCountryName] = useState('');
@@ -20,13 +21,13 @@ export default function Search() {
   };
 
   return (
-    <div className="">
+    <div className={styles.searchContainer}>
       <button type="submit" onClick={clickHandler}>
-        Search{' '}
+        <p> SEARCH </p>
       </button>
       <input
         type="text"
-        placeholder={'Encuentra tu pais'}
+        placeholder={'Find your country'}
         onChange={(e) => {
           searchInputHandler(e);
         }}

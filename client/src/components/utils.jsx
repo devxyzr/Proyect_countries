@@ -1,7 +1,7 @@
 import { ContinentIcon } from './ContinentIcon';
 
 export const difficulties = [1, 2, 3, 4, 5];
-export const seasons = ['Verano', 'Otoño', 'Invierno', 'Primavera'];
+export const seasons = ['Summer', 'Autumn', 'Winter', 'Spring'];
 export const duration = [
   {
     label: '1:00 hour',
