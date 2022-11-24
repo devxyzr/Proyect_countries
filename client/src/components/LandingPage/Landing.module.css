@@ -1,29 +1,25 @@
 
 
 .backgroundImg {
-    background-color: black;
+    background-color: white;
     background-image: url("https://openclipart.org/download/219677/World-Flags-Globe.svg");
     /* background-size:contain; */
     background-repeat: no-repeat;
     background-size: cover;
-
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
+   
 }
 
 
 .container {
     box-shadow: 0.5rem 0.5rem 4rem  ;
     background-color :rgba(205, 221, 231, 0.48);
-    margin-left: 20rem;
+    /* margin-left: 20rem; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    height: 30rem ;
+    height: 100% ;
     width: 50rem;
     border: 0.1rem solid white;
     border-radius: 1.5rem;
